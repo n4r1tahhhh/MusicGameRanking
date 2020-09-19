@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo"
+	"github.com/n4r1tahhhh/MusicGameRanking/handler"
 )
 
 func main() {
@@ -14,6 +15,9 @@ func main() {
 	if err != nil {
 		e.Logger.Fatal(err)
 	}
+
+	// Initialize handler
+	h := &handler.Handler{DB: db}
 
 	// Routes
 	e.GET("/", func(c echo.Context) error {
