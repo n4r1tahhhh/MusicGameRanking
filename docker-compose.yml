@@ -3,6 +3,8 @@ services:
   api:
     container_name: mgr_api
     build: ./api
+    working_dir: /go/src/api
+    command: go run server.go
     volumes:
       - ./api:/go/src/api
     ports:
