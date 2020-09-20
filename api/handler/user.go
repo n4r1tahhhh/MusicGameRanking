@@ -33,3 +33,9 @@ func (h *Handler) Signup(c echo.Context) error {
 	h.DB.Create(u)
 	return c.JSON(http.StatusCreated, u)
 }
+
+func (h *Handler) GetUsers(c echo.Context) error {
+	results := map[string]interface{}{}
+	h.DB.Model(&model.User{}).Select("name", "email").Find(&results)
+	return c.JSON(http.StatusOK, results)
+}
