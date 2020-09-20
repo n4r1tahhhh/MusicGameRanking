@@ -1,10 +1,12 @@
 package handler
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/labstack/echo"
 	"github.com/n4r1tahhhh/MusicGameRanking/model"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func (h *Handler) Signup(c echo.Context) error {
@@ -14,11 +16,17 @@ func (h *Handler) Signup(c echo.Context) error {
 
 	// Validate
 
+	// パスワードのハッシュ化
+	passwordHash, err := bcrypt.GenerateFromPassword([]byte(password), 12)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// Bind
 	u := &model.User{
 		Name:     name,
 		Email:    email,
-		Password: password,
+		Password: passwordHash,
 	}
 
 	// Save user
