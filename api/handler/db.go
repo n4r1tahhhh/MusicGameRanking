@@ -11,16 +11,20 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func EnvLoad() {
-	err := godotenv.Load()
+func ConnectDB(isTest bool) (*gorm.DB, error) {
+	// 開発環境かテスト環境かで開くenvファイルを選ぶ
+	environment := ""
+	if isTest {
+		environment = "test"
+	} else {
+		environment = "development"
+	}
+	err := godotenv.Load(fmt.Sprintf(".env.%s", environment))
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
-}
 
-func ConnectDB() (*gorm.DB, error) {
-	// 環境変数の設定
-	EnvLoad()
+	// 環境変数をfetch
 	user := os.Getenv("USER_NAME")
 	password := os.Getenv("USER_PASSWORD")
 	endpoint := os.Getenv("ENDPOINT")
