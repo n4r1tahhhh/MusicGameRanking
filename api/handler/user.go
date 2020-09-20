@@ -9,6 +9,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// Signup 新規登録
 func (h *Handler) Signup(c echo.Context) error {
 	name := c.FormValue("name")
 	email := c.FormValue("email")
@@ -34,6 +35,7 @@ func (h *Handler) Signup(c echo.Context) error {
 	return c.JSON(http.StatusCreated, u)
 }
 
+// GetUsers ユーザ一覧の取得
 func (h *Handler) GetUsers(c echo.Context) error {
 	results := map[string]interface{}{}
 	h.DB.Model(&model.User{}).Select("name", "email").Find(&results)

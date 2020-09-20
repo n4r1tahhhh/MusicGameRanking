@@ -11,6 +11,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
+// ConnectDB データベースに接続
 func ConnectDB(isTest bool) (*gorm.DB, error) {
 	// 開発環境かテスト環境かで開くenvファイルを選ぶ
 	environment := ""
