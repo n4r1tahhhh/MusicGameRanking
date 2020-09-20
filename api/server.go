@@ -5,6 +5,7 @@ import (
 
 	"github.com/labstack/echo"
 	"github.com/n4r1tahhhh/MusicGameRanking/handler"
+	"github.com/n4r1tahhhh/MusicGameRanking/model"
 )
 
 func main() {
@@ -15,6 +16,9 @@ func main() {
 	if err != nil {
 		e.Logger.Fatal(err)
 	}
+
+	// Migration
+	db.AutoMigrate(&model.User{})
 
 	// Initialize handler
 	h := &handler.Handler{DB: db}
