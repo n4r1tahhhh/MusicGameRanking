@@ -24,9 +24,9 @@ func (h *Handler) Signup(c echo.Context) error {
 
 	// Bind
 	u := &model.User{
-		Name:     name,
-		Email:    email,
-		Password: passwordHash,
+		Name:         name,
+		Email:        email,
+		PasswordHash: passwordHash,
 	}
 
 	// Save user
