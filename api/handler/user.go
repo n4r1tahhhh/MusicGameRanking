@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -31,11 +30,10 @@ func (h *Handler) Signup(c echo.Context) error {
 	}
 
 	// Save user
-	if err := h.DB.Create(u); err != nil {
-		return c.String(http.StatusBadRequest, "fail in creating")
+	if result := h.DB.Model(&model.User{}).Create(u); result.Error != nil {
+		return result.Error
 	}
-	res := fmt.Sprintf(`{"name":"%s", "email":"%s"}`, u.Name, u.Email)
-	return c.JSON(http.StatusCreated, res)
+	return c.String(http.StatusCreated, "Created!")
 }
 
 // GetUsers ユーザ一覧の取得

@@ -43,6 +43,6 @@ func TestSignup(t *testing.T) {
 	// Assertions
 	if assert.NoError(t, h.Signup(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
-		assert.Equal(t, `{"name":"Jon", "email":"Jon@example.com"}`, rec.Body.String())
+		assert.Equal(t, "Created!", rec.Body.String())
 	}
 }
