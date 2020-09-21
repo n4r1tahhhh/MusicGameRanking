@@ -3,6 +3,7 @@ package handler
 import (
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"strings"
 	"testing"
 
@@ -13,7 +14,6 @@ import (
 
 var e *echo.Echo
 var h *Handler
-var userJSON = `{"name":"Jon", "email":"Jon@example.com", "password":"password"}`
 
 func TestMain(t *testing.T) {
 	e = echo.New()
@@ -29,14 +29,16 @@ func TestMain(t *testing.T) {
 
 	// Initialize handler
 	h = &Handler{DB: db}
-
-	t.Run("User", TestSignup)
 }
 
 func TestSignup(t *testing.T) {
 	// Setup
-	req := httptest.NewRequest(http.MethodPost, "/users", strings.NewReader(userJSON))
-	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
+	f := make(url.Values)
+	f.Set("name", "Jon")
+	f.Set("email", "jon@example.com")
+	f.Set("password", "password")
+	req := httptest.NewRequest(http.MethodPost, "/users", strings.NewReader(f.Encode()))
+	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationForm)
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 
