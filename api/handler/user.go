@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/labstack/echo"
@@ -21,7 +20,7 @@ func (h *Handler) Signup(c echo.Context) error {
 	// パスワードのハッシュ化
 	passwordHash, err := bcrypt.GenerateFromPassword([]byte(password), 12)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	// Bind
@@ -33,7 +32,7 @@ func (h *Handler) Signup(c echo.Context) error {
 
 	// Save user
 	if err := h.DB.Create(u); err != nil {
-		log.Fatal(err)
+		return c.String(http.StatusBadRequest, "fail in creating")
 	}
 	res := fmt.Sprintf(`{"name":"%s", "email":"%s"}`, u.Name, u.Email)
 	return c.JSON(http.StatusCreated, res)

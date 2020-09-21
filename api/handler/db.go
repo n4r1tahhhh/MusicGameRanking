@@ -2,7 +2,6 @@ package handler
 
 import (
 	"fmt"
-	"log"
 	"os"
 
 	"gorm.io/driver/mysql"
@@ -22,7 +21,7 @@ func ConnectDB(isTest bool) (*gorm.DB, error) {
 	}
 	err := godotenv.Load(fmt.Sprintf(".env.%s", environment))
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		return nil, err
 	}
 
 	// 環境変数をfetch
