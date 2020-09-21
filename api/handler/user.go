@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -31,8 +32,11 @@ func (h *Handler) Signup(c echo.Context) error {
 	}
 
 	// Save user
-	h.DB.Create(u)
-	return c.JSON(http.StatusCreated, u)
+	if err := h.DB.Create(u); err != nil {
+		log.Fatal(err)
+	}
+	res := fmt.Sprintf(`{"name":"%s", "email":"%s"}`, u.Name, u.Email)
+	return c.JSON(http.StatusCreated, res)
 }
 
 // GetUsers ユーザ一覧の取得

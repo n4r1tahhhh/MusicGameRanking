@@ -12,7 +12,7 @@ func main() {
 	e := echo.New()
 
 	// Database connection
-	db, err := handler.ConnectDB(false)
+	db, err := handler.ConnectDB(false) // isTest = false
 	if err != nil {
 		e.Logger.Fatal(err)
 	}
