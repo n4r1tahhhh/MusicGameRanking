@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strings"
 	"testing"
 
@@ -15,7 +16,7 @@ import (
 var e *echo.Echo
 var h *Handler
 
-func TestMain(t *testing.T) {
+func TestMain(m *testing.M) {
 	e = echo.New()
 
 	// Database connection
@@ -29,6 +30,11 @@ func TestMain(t *testing.T) {
 
 	// Initialize handler
 	h = &Handler{DB: db}
+
+	code := m.Run()
+
+	db.Exec("DROP TABLE users")
+	os.Exit(code)
 }
 
 func TestSignup(t *testing.T) {
