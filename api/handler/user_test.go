@@ -54,3 +54,16 @@ func TestSignup(t *testing.T) {
 		assert.Equal(t, "Created!", rec.Body.String())
 	}
 }
+
+func TestGetUsers(t *testing.T) {
+	// Setup
+	req := httptest.NewRequest(http.MethodGet, "/", nil)
+	rec := httptest.NewRecorder()
+	c := e.NewContext(req, rec)
+
+	// Assertions
+	if assert.NoError(t, h.GetUsers(c)) {
+		assert.Equal(t, http.StatusOK, rec.Code)
+		assert.Equal(t, "[{\"Name\":\"Jon\",\"Email\":\"jon@example.com\"}]\n", rec.Body.String())
+	}
+}
