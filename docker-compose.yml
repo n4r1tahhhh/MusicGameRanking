@@ -1,5 +1,17 @@
 version: '3'
 services:
+  nuxt:
+    container_name: mgr_nuxt
+    build: ./front
+    working_dir: /front/musicgameranking/
+    command: yarn dev
+    volumes:
+      - ./front:/front
+    ports:
+      - 3000:3000
+    tty: true
+    depends_on:
+      - api
   api:
     container_name: mgr_api
     build: ./api

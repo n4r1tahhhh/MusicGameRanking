@@ -37,8 +37,8 @@ func TestMain(m *testing.M) {
 	os.Exit(code)
 }
 
-func TestSignup(t *testing.T) {
-	// Setup
+func TestUser(t *testing.T) {
+	// Setup(Signup)
 	f := make(url.Values)
 	f.Set("name", "Jon")
 	f.Set("email", "jon@example.com")
@@ -48,20 +48,18 @@ func TestSignup(t *testing.T) {
 	rec := httptest.NewRecorder()
 	c := e.NewContext(req, rec)
 
-	// Assertions
+	// Assertions(Signup)
 	if assert.NoError(t, h.Signup(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
 		assert.Equal(t, "Created!", rec.Body.String())
 	}
-}
 
-func TestGetUsers(t *testing.T) {
-	// Setup
-	req := httptest.NewRequest(http.MethodGet, "/", nil)
-	rec := httptest.NewRecorder()
-	c := e.NewContext(req, rec)
+	// Setup(GetUsers)
+	req = httptest.NewRequest(http.MethodGet, "/", nil)
+	rec = httptest.NewRecorder()
+	c = e.NewContext(req, rec)
 
-	// Assertions
+	// Assertions(GetUsers)
 	if assert.NoError(t, h.GetUsers(c)) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Equal(t, "[{\"Name\":\"Jon\",\"Email\":\"jon@example.com\"}]\n", rec.Body.String())
