@@ -13,13 +13,12 @@ import (
 // ConnectDB データベースに接続
 func ConnectDB(isTest bool) (*gorm.DB, error) {
 	// 開発環境かテスト環境かで開くenvファイルを選ぶ
-	environment := ""
+	var err error
 	if isTest {
-		environment = "test"
+		err = godotenv.Load(".env.test")
 	} else {
-		environment = "development"
+		err = godotenv.Load()
 	}
-	err := godotenv.Load(fmt.Sprintf(".env.%s", environment))
 	if err != nil {
 		return nil, err
 	}
