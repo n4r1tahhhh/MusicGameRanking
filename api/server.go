@@ -19,6 +19,7 @@ func main() {
 
 	// Migration
 	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.Competition{})
 
 	// Initialize handler
 	h := &handler.Handler{DB: db}
@@ -27,8 +28,12 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
+	// user
 	e.GET("/users", h.GetUsers)
 	e.POST("/users", h.Signup)
+	// competition
+	e.GET("/competitions", h.GetCompetitions)
+	e.POST("/competitions", h.CreateCompetitions)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
