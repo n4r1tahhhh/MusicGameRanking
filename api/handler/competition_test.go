@@ -12,7 +12,7 @@ import (
 )
 
 func TestCompetition(t *testing.T) {
-	// Setup(Create)
+	// Setup(CreateCompetitions)
 	f := make(url.Values)
 	f.Set("name", "Taiko no Tatsujin competition")
 	req := httptest.NewRequest(http.MethodPost, "/competitions", strings.NewReader(f.Encode()))
@@ -20,18 +20,18 @@ func TestCompetition(t *testing.T) {
 	rec := httptest.NewRecorder()
 	c := E.NewContext(req, rec)
 
-	// Assertions(Create)
+	// Assertions(CreateCompetitions)
 	if assert.NoError(t, H.CreateCompetitions(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
 		assert.Equal(t, "Created!", rec.Body.String())
 	}
 
-	// Setup(GetUsers)
+	// Setup(GetCompetitions)
 	req = httptest.NewRequest(http.MethodGet, "/competitions", nil)
 	rec = httptest.NewRecorder()
 	c = E.NewContext(req, rec)
 
-	// Assertions(GetUsers)
+	// Assertions(GetCompetitions)
 	if assert.NoError(t, H.GetCompetitions(c)) {
 		assert.Equal(t, http.StatusOK, rec.Code)
 		assert.Contains(t, rec.Body.String(), "Taiko no Tatsujin")
