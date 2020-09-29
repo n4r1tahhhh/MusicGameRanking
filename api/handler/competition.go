@@ -7,8 +7,8 @@ import (
 	"github.com/n4r1tahhhh/MusicGameRanking/model"
 )
 
-// CreateCompetitions 大会を作成
-func (h *Handler) CreateCompetitions(c echo.Context) error {
+// CreateCompetition 大会を作成
+func (h *Handler) CreateCompetition(c echo.Context) error {
 	name := c.FormValue("name")
 
 	// Validate

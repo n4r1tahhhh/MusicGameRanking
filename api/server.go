@@ -21,6 +21,7 @@ func main() {
 	db.AutoMigrate(&model.User{})
 	db.AutoMigrate(&model.Competition{})
 	db.AutoMigrate(&model.Challenge{})
+	db.AutoMigrate(&model.Submission{})
 
 	// Initialize handler
 	h := &handler.Handler{DB: db}
@@ -34,7 +35,7 @@ func main() {
 	e.POST("/users", h.Signup)
 	// competition
 	e.GET("/competitions", h.GetCompetitions)
-	e.POST("/competitions", h.CreateCompetitions)
+	e.POST("/competitions", h.CreateCompetition)
 	// challenge
 	e.GET("/challenges", h.GetChallenges)
 	e.POST("/challenges", h.CreateChallenge)

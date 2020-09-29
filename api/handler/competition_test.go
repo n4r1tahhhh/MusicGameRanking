@@ -21,7 +21,7 @@ func TestCompetition(t *testing.T) {
 	c := E.NewContext(req, rec)
 
 	// Assertions(CreateCompetitions)
-	if assert.NoError(t, H.CreateCompetitions(c)) {
+	if assert.NoError(t, H.CreateCompetition(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
 		assert.Equal(t, "Created!", rec.Body.String())
 	}
