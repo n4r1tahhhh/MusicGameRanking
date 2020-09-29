@@ -19,6 +19,9 @@ func main() {
 
 	// Migration
 	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.Competition{})
+	db.AutoMigrate(&model.Challenge{})
+	db.AutoMigrate(&model.Submission{})
 
 	// Initialize handler
 	h := &handler.Handler{DB: db}
@@ -27,8 +30,18 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello, World!")
 	})
+	// user
 	e.GET("/users", h.GetUsers)
 	e.POST("/users", h.Signup)
+	// competition
+	e.GET("/competitions", h.GetCompetitions)
+	e.POST("/competitions", h.CreateCompetition)
+	// challenge
+	e.GET("/challenges", h.GetChallenges)
+	e.POST("/challenges", h.CreateChallenge)
+	// score
+	e.GET("/submissions", h.GetSubmissions)
+	e.POST("/submissions", h.CreateSubmission)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))

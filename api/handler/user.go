@@ -29,14 +29,14 @@ func (h *Handler) Signup(c echo.Context) error {
 	}
 
 	// Bind
-	u := &model.User{
+	user := &model.User{
 		Name:         name,
 		Email:        email,
 		PasswordHash: passwordHash,
 	}
 
 	// Save user
-	if result := h.DB.Model(&model.User{}).Create(u); result.Error != nil {
+	if result := h.DB.Model(&model.User{}).Create(user); result.Error != nil {
 		return result.Error
 	}
 	return c.String(http.StatusCreated, "Created!")

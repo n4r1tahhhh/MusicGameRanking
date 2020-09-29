@@ -11,31 +11,29 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestUser(t *testing.T) {
-	// Setup(Signup)
+func TestChallenge(t *testing.T) {
+	// Setup(CreateChallenge)
 	f := make(url.Values)
-	f.Set("name", "Jon")
-	f.Set("email", "jon@example.com")
-	f.Set("password", "password")
-	req := httptest.NewRequest(http.MethodPost, "/users", strings.NewReader(f.Encode()))
+	f.Set("name", "music")
+	req := httptest.NewRequest(http.MethodPost, "/challenges", strings.NewReader(f.Encode()))
 	req.Header.Set(echo.HeaderContentType, echo.MIMEApplicationForm)
 	rec := httptest.NewRecorder()
 	c := E.NewContext(req, rec)
 
-	// Assertions(Signup)
-	if assert.NoError(t, H.Signup(c)) {
+	// Assertions(CreateChallenge)
+	if assert.NoError(t, H.CreateChallenge(c)) {
 		assert.Equal(t, http.StatusCreated, rec.Code)
 		assert.Equal(t, "Created!", rec.Body.String())
 	}
 
-	// Setup(GetUsers)
-	req = httptest.NewRequest(http.MethodGet, "/users", nil)
+	// Setup(GetChallenges)
+	req = httptest.NewRequest(http.MethodGet, "/challenges", nil)
 	rec = httptest.NewRecorder()
 	c = E.NewContext(req, rec)
 
-	// Assertions(GetUsers)
-	if assert.NoError(t, H.GetUsers(c)) {
+	// Assertions(GetChallenges)
+	if assert.NoError(t, H.GetChallenges(c)) {
 		assert.Equal(t, http.StatusOK, rec.Code)
-		assert.Equal(t, "[{\"Name\":\"Jon\",\"Email\":\"jon@example.com\"}]\n", rec.Body.String())
+		assert.Contains(t, rec.Body.String(), "music")
 	}
 }
