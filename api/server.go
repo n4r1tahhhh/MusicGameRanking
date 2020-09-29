@@ -20,6 +20,7 @@ func main() {
 	// Migration
 	db.AutoMigrate(&model.User{})
 	db.AutoMigrate(&model.Competition{})
+	db.AutoMigrate(&model.Challenge{})
 
 	// Initialize handler
 	h := &handler.Handler{DB: db}
@@ -34,6 +35,9 @@ func main() {
 	// competition
 	e.GET("/competitions", h.GetCompetitions)
 	e.POST("/competitions", h.CreateCompetitions)
+	// challenge
+	e.GET("/challenges", h.GetChallenges)
+	e.POST("/challenges", h.CreateChallenge)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))

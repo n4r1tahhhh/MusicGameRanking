@@ -23,6 +23,7 @@ func TestMain(m *testing.M) {
 	// Migration
 	db.AutoMigrate(&model.User{})
 	db.AutoMigrate(&model.Competition{})
+	db.AutoMigrate(&model.Challenge{})
 
 	// Initialize handler
 	H = &Handler{DB: db}
