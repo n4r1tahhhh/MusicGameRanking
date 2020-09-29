@@ -24,6 +24,7 @@ func TestMain(m *testing.M) {
 	db.AutoMigrate(&model.User{})
 	db.AutoMigrate(&model.Competition{})
 	db.AutoMigrate(&model.Challenge{})
+	db.AutoMigrate(&model.Submission{})
 
 	// Initialize handler
 	H = &Handler{DB: db}
@@ -32,5 +33,7 @@ func TestMain(m *testing.M) {
 
 	db.Exec("DROP TABLE users")
 	db.Exec("DROP TABLE competitions")
+	db.Exec("DROP TABLE challenges")
+	db.Exec("DROP TABLE submissions")
 	os.Exit(code)
 }

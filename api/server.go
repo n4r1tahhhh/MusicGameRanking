@@ -39,6 +39,9 @@ func main() {
 	// challenge
 	e.GET("/challenges", h.GetChallenges)
 	e.POST("/challenges", h.CreateChallenge)
+	// score
+	e.GET("/submissions", h.GetSubmissions)
+	e.POST("/submissions", h.CreateSubmission)
 
 	// Start server
 	e.Logger.Fatal(e.Start(":1323"))
