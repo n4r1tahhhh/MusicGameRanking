@@ -4,6 +4,6 @@ RUN mkdir /front
 WORKDIR /front
 COPY . .
 
-EXPOSE 3000
+# RUN yarn create nuxt-app musicgameranking
 
-# docker-compose run nuxt yarn create nuxt-app musicgameranking
+EXPOSE 3000
